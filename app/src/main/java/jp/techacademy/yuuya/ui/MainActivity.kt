@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import android.app.TimePickerDialog
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
+        button3.setOnClickListener(this)
     }
 
      override fun onClick(p0: View) {
@@ -22,10 +24,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
              textView.text = editText.text.toString()
          }else if(p0.id==R.id.button2) {
              showAlertDialog()
-         }
+         }else  if(p0.id ==R.id.button3)
+             showTimePickerDialog()
      }
 
-     private fun showAlertDialog(){
+    private fun showAlertDialog(){
          //AlertDialog.Builderクラスを使ってAlertDialogの準備をする。
          val alertDialogBuilder = AlertDialog.Builder(this)
          alertDialogBuilder.setTitle("タイトル")
@@ -51,4 +54,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
          alertDialog.show()
      }
 
+    private fun showTimePickerDialog() {
+        val timePickerDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                Log.d("UI_PARTS", "$hour:$minute")
+            },
+            13, 0, true)
+        timePickerDialog.show()
+    }
 }

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import android.app.TimePickerDialog
+import android.app.DatePickerDialog
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
@@ -17,15 +18,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
         button3.setOnClickListener(this)
+        button4.setOnClickListener(this)
     }
 
      override fun onClick(p0: View) {
-         if(p0.id==R.id.button1){
-             textView.text = editText.text.toString()
-         }else if(p0.id==R.id.button2) {
-             showAlertDialog()
-         }else  if(p0.id ==R.id.button3)
-             showTimePickerDialog()
+      when(p0.id){
+          R.id.button1 -> textView.text = editText.text.toString()
+          R.id.button2 -> showAlertDialog()
+          R.id.button3 -> showTimePickerDialog()
+          R.id.button4 -> showDataPickerDialog()
+
+      }
      }
 
     private fun showAlertDialog(){
@@ -62,5 +65,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             },
             13, 0, true)
         timePickerDialog.show()
+    }
+
+    private fun showDataPickerDialog(){
+        val dataPickerDialog = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener(){view, year, month, dayOfMonth ->
+                Log.d("UI_PARTS", "$year/${month+1}/$dayOfMonth")
+            },
+            2018,
+            4,
+            1
+        )
+        dataPickerDialog.show()
     }
 }
